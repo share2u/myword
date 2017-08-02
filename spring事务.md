@@ -1,4 +1,6 @@
-一、  四个特性
+事务
+===
+### 一、  四个特性
 原子性:
 要么做，要么不做，支持回滚操作，
 实现方式：1.在数据快照上进行，并不修改实际的数据，如果有错并不会提交
@@ -35,7 +37,7 @@ Start transaction 开启一项新的事务
 Commit  rollback  提交与回滚
 Set autocommit  0  以后的操作需要明确的命令进行提交或回滚
 
-二、  事务传播行为
+### 二、  事务传播行为
 Service 层方法调用service层的其他方法，本身service方法就是一个事务，事务中的事务如何处理？
 传统的做法：将session（关于数据库的内容）传递到另外一个方法中
 PROPAGATION_REQUIRED
@@ -48,7 +50,7 @@ Nested的事务和他的父事务是相依的，他的提交是要等和他的�
 A 方法中调用b方法，
 A在事务里，会在b调用之前设置一个savepoint,如果b失败回滚回滚，a 会回到saveponit这个位置，选择其他分支执行
 A不在事务里，执行创建事务，回到第一种
-三、Spring事务实现演变
+### 三、Spring事务实现演变
 1   编程式事务
 2   声明式事务
 2.1 Xml声明式事务
@@ -56,7 +58,7 @@ A不在事务里，执行创建事务，回到第一种
 2.1.2   基于tx/aop命名空间的配置
 2.2 注解声明式事务
 2.2.1   使用@Transactional注解
-三、  spring 事务管理难点剖析
+### 四、  spring 事务管理难点剖析
 3.1 事务嵌套调用的分析
     调用本方法的的其他方法，天然融合在一个事务中，调用其他service的方法，采用传播机制
 3.2 在多线程环境下事务方法的调用问题
@@ -78,5 +80,5 @@ Public static 和public final的方法是要小心的，如果被非事务方法
 添加@Transactional(noRollbackFor=RuntimeException.class)让spring对于RuntimeException不回滚事务
 添加@Transactional(RollbackFor=Exception.class)让spring对于Exception进行事务的回滚
 
-五、分布式事务
+### 五、分布式事务
 
